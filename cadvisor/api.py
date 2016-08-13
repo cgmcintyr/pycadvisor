@@ -24,6 +24,4 @@ def events_info_url(base_url, name):
     return urljoin(base_url, 'events/' + name)
 
 def get_json_data(url):
-    r = requests.get(url).json()
-    return r.json()
-
+    return requests.get(url).json()
