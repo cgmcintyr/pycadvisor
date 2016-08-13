@@ -1,0 +1,5 @@
+[run]
+omit = cadvisor/tests/*
+
+[report]
+omit = cadvisor/tests/*
