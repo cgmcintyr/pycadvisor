@@ -1,0 +1,1 @@
+include LICENSE tools/pip-requires tools/test-requires
