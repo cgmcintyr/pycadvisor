@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 machine_info_1 = """
 {
     "boot_id": "111111a1-2bb2-33c3-444d-ee555e5e5e55",

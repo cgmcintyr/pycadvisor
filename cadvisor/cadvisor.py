@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, division, print_function
+
 import requests
 
-from . import api
+import cadvisor.api as api
+from cadvisor.info.v1.machine import MachineInfo
 
 class Cadvisor(object):
     def __init__(self, url):
@@ -11,4 +15,5 @@ class Cadvisor(object):
         return api.get_json_data(api.all_info_url(self.base_url))
 
     def get_machine_info(self):
-        return api.get_json_data(api.machine_info_url(self.base_url))
+        data = api.get_json_data(api.machine_info_url(self.base_url))
+        return MachineInfo(data)

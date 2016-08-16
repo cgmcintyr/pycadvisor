@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, division, print_function
 
 import unittest
 import json
 
 import requests_mock
 
-from cadvisor import Cadvisor
 import cadvisor.tests.mocks as mocks
+from cadvisor import Cadvisor
+from cadvisor.info.v1.machine import MachineInfo
 
 class TestClient(unittest.TestCase):
 
@@ -24,11 +26,9 @@ class TestClient(unittest.TestCase):
         self.c = Cadvisor(url)
         self.assertEqual(self.c.base_url, url + '/')
 
-    def test_machine_info_returns_json(self):
+    def test_machine_info_returns_machine_info_object(self):
         with requests_mock.mock() as m:
-            m.get(requests_mock.ANY, text=mocks.machine_info_1)
-            self.assertEqual(self.c.get_machine_info(), json.loads(mocks.machine_info_1))
-
-
-if __name__ == '__main__':
-    unittest.main()
+            m.get('http://testurl.com/machine', text='{"boot_id" : "test"}')
+            machine = self.c.get_machine_info()
+            self.assertIsInstance(machine, MachineInfo)
+            self.assertEqual(self.c.get_machine_info().boot_id, 'test')
