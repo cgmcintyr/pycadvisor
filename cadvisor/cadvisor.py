@@ -7,7 +7,6 @@ class Cadvisor(object):
         if not url.endswith('/'): url+='/'
         self.base_url = url
 
-
     def get_all_info(self):
         return api.get_json_data(api.all_info_url(self.base_url))
 
