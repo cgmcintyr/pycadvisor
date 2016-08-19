@@ -15,6 +15,18 @@ class TestV1ContainerInfo(unittest.TestCase):
         container = ContainerInfo({'id': 'test'})
         self.assertEqual(container.container_id, 'test')
 
+    def test_load_attr(self):
+        container = ContainerInfo({})
+        container._data = {'test': 'test'}
+        container.load_attr('test')
+        self.assertEqual(container.test, 'test')
+
+    def test_load_named_attr(self):
+        container = ContainerInfo({})
+        container._data = {'test': 'test'}
+        container.load_attr('test', attr='test_attr')
+        self.assertEqual(container.test_attr, 'test')
+
     def test_init_name(self):
         container = ContainerInfo({'name': 'test'})
         self.assertEqual(container.name, 'test')

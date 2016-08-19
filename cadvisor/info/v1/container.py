@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function
 
-class ContainerInfo:
-    def __init__(self, dictionary):
-        self.data = dictionary
-        self.set_attr_from_dict('id', attr='container_id')
-        self.set_attr_from_dict('name')
-        self.set_attr_from_dict('aliases')
-        self.set_attr_from_dict('namespace')
-        self.set_attr_from_dict('labels')
+from cadvisor.info.info import Info
 
-    def set_attr_from_dict(self, key, attr=None):
-        value = self.data.get(key)
-        if attr is None: attr=key
-        setattr(self, attr, value)
+class ContainerInfo(Info):
+    def __init__(self, dictionary):
+        self._data = dictionary
+
+        # Container Reference
+        self.load_attr('id', attr='container_id')
+        self.load_attr('name')
+        self.load_attr('aliases')
+        self.load_attr('namespace')
+        self.load_attr('labels')
