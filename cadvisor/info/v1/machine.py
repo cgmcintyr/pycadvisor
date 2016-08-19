@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function
 
 from cadvisor.info.info import Info
 
+
 class MachineInfo(Info):
     def __init__(self, dictionary):
         Info.__init__(self, dictionary)
@@ -12,10 +13,10 @@ class MachineInfo(Info):
         self.load_attr('system_uuid', attr='system_uuid')
         self.load_attr('boot_id', attr='boot_id')
 
-        self.filesystems = create_object_list(FsInfo, dictionary.get('filesystems'))
-        self.disk_map = create_object_list(DiskInfo, dictionary.get('disk_map'))
-        self.network_devices = create_object_list(NetInfo, dictionary.get('network_devices'))
-        self.topology = create_object_list(Node, dictionary.get('topology'))
+        self.load_attr_object_list('filesystems', FsInfo)
+        self.load_attr_object_list('disk_map', DiskInfo)
+        self.load_attr_object_list('network_devices', NetInfo)
+        self.load_attr_object_list('topology', Node)
 
         self.load_attr('cloud_provider', attr='cloud_provider')
         self.load_attr('instance_type', attr='instance_type')
@@ -52,16 +53,17 @@ class Node(Info):
         Info.__init__(self, dictionary)
         self.load_attr('node_id', attr='node_id')
         self.load_attr('memory', attr='memory')
-        self.filesystems = create_object_list(FsInfo, dictionary.get('filesystems'))
-        self.caches = create_object_list(Cache, dictionary.get('caches'))
-        self.cores = create_object_list(Core, dictionary.get('cores'))
+        self.load_attr_object_list('filesystems', FsInfo)
+        self.load_attr_object_list('caches', Cache)
+        self.load_attr_object_list('cores', Core)
+
 
 class Core(Info):
     def __init__(self, dictionary):
         Info.__init__(self, dictionary)
         self.load_attr('core_id', attr='core_id')
         self.load_attr('thread_ids', attr='threads')
-        self.caches = create_object_list(Cache, dictionary.get('caches'))
+        self.load_attr_object_list('caches', Cache)
 
 class Cache(Info):
     def __init__(self, dictionary):
@@ -69,9 +71,3 @@ class Cache(Info):
         self.load_attr('size', attr='size')
         self.load_attr('type', attr='cache_type')
         self.load_attr('level', attr='level')
-
-def create_object_list(cls, dict_list):
-    if dict_list:
-        return [cls(dictionary) for dictionary in dict_list
-                if dictionary is not None]
-    return []

@@ -15,7 +15,6 @@ from cadvisor.info.v1.machine import NetInfo
 from cadvisor.info.v1.machine import Node
 from cadvisor.info.v1.machine import Core
 from cadvisor.info.v1.machine import Cache
-from cadvisor.info.v1.machine import create_object_list
 
 class TestV1MachineInfo(unittest.TestCase):
     def test_machine_info_returns_machine_info_object(self):
@@ -190,8 +189,8 @@ class TestV1MachineInfo(unittest.TestCase):
         core = Node({'caches':[{'size':'test'},{'size':'test'}]})
         self.assertTrue(all(isinstance(x, Cache) for x in core.caches))
 
-    def test_create_object_on_none(self):
-        self.assertEqual(create_object_list(FsInfo, None), [])
-
-    def test_create_empty_list_on_none_object_list(self):
-        self.assertEqual(create_object_list(FsInfo, [None, None]), [])
+#    def test_create_object_on_none(self):
+#        self.assertEqual(create_object_list(FsInfo, None), [])
+#
+#    def test_create_empty_list_on_none_object_list(self):
+#        self.assertEqual(create_object_list(FsInfo, [None, None]), [])
