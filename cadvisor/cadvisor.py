@@ -21,4 +21,4 @@ class Cadvisor(object):
 
     def get_containers_info(self, name):
         data = api.get_json_data(api.containers_info_url(self.base_url, name))
-        return ContainerInfo(name, data)
+        return ContainerInfo(data)
