@@ -13,10 +13,8 @@ class Info:
         return getattr(self, x)
 
     def __setattr__(self, attr, value):
-        if attr == '1':
-            raise AttributeError('Attempting to alter read-only attribute {}'.format(attr))
-        else:
-            setattr(self, attr, value)
+        if hasattr(self, attr): raise AttributeError('Attempting to alter read-only value')
+        else: self.__dict__[attr] = value
 
     def setup(self):
         return None
@@ -30,10 +28,9 @@ class Info:
 
     def load_attr_object_list(self, key, cls, attr=None):
         if attr is None: attr=key
-        setattr(self, attr, [])
-
         obj_list = self._data.get(key)
-        if obj_list:
-            setattr(self, attr, [cls(d) for d in obj_list if d is not None])
+        if obj_list: setattr(self, attr, [cls(d) for d in obj_list if d is not None])
+        else: setattr(self, attr, [])
+
 
 
