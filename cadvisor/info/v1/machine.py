@@ -7,6 +7,8 @@ from cadvisor.info.info import Info
 class MachineInfo(Info):
     def __init__(self, dictionary):
         Info.__init__(self, dictionary)
+
+    def setup(self):
         self.load_attr('num_cores', attr='num_cores')
         self.load_attr('cpu_frequency_khz', attr='cpu_frequency_khz')
         self.load_attr('machine_id', attr='machine_id')
@@ -25,6 +27,8 @@ class MachineInfo(Info):
 class FsInfo(Info):
     def __init__(self, dictionary):
         Info.__init__(self, dictionary)
+
+    def setup(self):
         self.load_attr('device', attr='device')
         self.load_attr('capacity', attr='capacity')
         self.load_attr('type', attr='fs_type')
@@ -34,6 +38,8 @@ class FsInfo(Info):
 class DiskInfo(Info):
     def __init__(self, dictionary):
         Info.__init__(self, dictionary)
+
+    def setup(self):
         self.load_attr('name', attr='name')
         self.load_attr('major', attr='major')
         self.load_attr('minor', attr='minor')
@@ -43,6 +49,8 @@ class DiskInfo(Info):
 class NetInfo(Info):
     def __init__(self, dictionary):
         Info.__init__(self, dictionary)
+
+    def setup(self):
         self.load_attr('name', attr='name')
         self.load_attr('mac_address', attr='mac_address')
         self.load_attr('speed', attr='speed')
@@ -51,6 +59,8 @@ class NetInfo(Info):
 class Node(Info):
     def __init__(self, dictionary):
         Info.__init__(self, dictionary)
+
+    def setup(self):
         self.load_attr('node_id', attr='node_id')
         self.load_attr('memory', attr='memory')
         self.load_attr_object_list('filesystems', FsInfo)
@@ -61,6 +71,8 @@ class Node(Info):
 class Core(Info):
     def __init__(self, dictionary):
         Info.__init__(self, dictionary)
+
+    def setup(self):
         self.load_attr('core_id', attr='core_id')
         self.load_attr('thread_ids', attr='threads')
         self.load_attr_object_list('caches', Cache)
@@ -68,6 +80,8 @@ class Core(Info):
 class Cache(Info):
     def __init__(self, dictionary):
         Info.__init__(self, dictionary)
+
+    def setup(self):
         self.load_attr('size', attr='size')
         self.load_attr('type', attr='cache_type')
         self.load_attr('level', attr='level')
