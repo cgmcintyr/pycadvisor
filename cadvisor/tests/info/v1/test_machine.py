@@ -188,9 +188,3 @@ class TestV1MachineInfo(unittest.TestCase):
     def test_core_caches_list_of_correct_type(self):
         core = Node({'caches':[{'size':'test'},{'size':'test'}]})
         self.assertTrue(all(isinstance(x, Cache) for x in core.caches))
-
-#    def test_create_object_on_none(self):
-#        self.assertEqual(create_object_list(FsInfo, None), [])
-#
-#    def test_create_empty_list_on_none_object_list(self):
-#        self.assertEqual(create_object_list(FsInfo, [None, None]), [])

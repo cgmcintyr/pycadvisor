@@ -15,10 +15,10 @@ class MachineInfo(Info):
         self.load_attr('system_uuid', attr='system_uuid')
         self.load_attr('boot_id', attr='boot_id')
 
-        self.load_attr_object_list('filesystems', FsInfo)
-        self.load_attr_object_list('disk_map', DiskInfo)
-        self.load_attr_object_list('network_devices', NetInfo)
-        self.load_attr_object_list('topology', Node)
+        self.load_attr_info_list('filesystems', FsInfo)
+        self.load_attr_info_list('disk_map', DiskInfo)
+        self.load_attr_info_list('network_devices', NetInfo)
+        self.load_attr_info_list('topology', Node)
 
         self.load_attr('cloud_provider', attr='cloud_provider')
         self.load_attr('instance_type', attr='instance_type')
@@ -63,9 +63,9 @@ class Node(Info):
     def setup(self):
         self.load_attr('node_id', attr='node_id')
         self.load_attr('memory', attr='memory')
-        self.load_attr_object_list('filesystems', FsInfo)
-        self.load_attr_object_list('caches', Cache)
-        self.load_attr_object_list('cores', Core)
+        self.load_attr_info_list('filesystems', FsInfo)
+        self.load_attr_info_list('caches', Cache)
+        self.load_attr_info_list('cores', Core)
 
 
 class Core(Info):
@@ -75,7 +75,7 @@ class Core(Info):
     def setup(self):
         self.load_attr('core_id', attr='core_id')
         self.load_attr('thread_ids', attr='threads')
-        self.load_attr_object_list('caches', Cache)
+        self.load_attr_info_list('caches', Cache)
 
 class Cache(Info):
     def __init__(self, dictionary, **kwargs):

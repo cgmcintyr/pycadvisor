@@ -9,7 +9,6 @@ import requests_mock
 from cadvisor.info.info import Info
 
 class TestInfo(unittest.TestCase):
-
     def test_data_deleted_by_default(self):
         info = Info({'test': None})
         with self.assertRaises(AttributeError):
@@ -45,17 +44,22 @@ class TestInfo(unittest.TestCase):
             info.load_attr('1')
             info.load_attr('1')
 
-    def test_load_attr_object_list_on_none(self):
+    def test_load_attr_info_list_on_none(self):
         info = Info({'test': None}, preserve_data=True)
-        info.load_attr_object_list('test', Info)
+        info.load_attr_info_list('test', Info)
         self.assertEqual(info.test, [])
 
-    def test_load_attr_object_list_on_list_of_none(self):
-        info = Info({'sub_info_data': [None, None]}, preserve_data=True)
-        info.load_attr_object_list('sub_info_data', Info)
-        self.assertEqual(info.sub_info_data, [])
+    def test_load_attr_info_list_on_list_of_none(self):
+        with self.assertRaises(TypeError):
+            info = Info({'sub_info_data': [None, None]}, preserve_data=True)
+            info.load_attr_info_list('sub_info_data', Info)
 
-    def test_load_attr_object_list_on_list_mixed_none(self):
-        info = Info({'sub_info_data': [None, {'test':'test'}]}, preserve_data=True)
-        info.load_attr_object_list('sub_info_data', Info)
-        self.assertEqual(len(info.sub_info_data), 1)
+    def test_load_attr_info_list_on_list_mixed_none(self):
+        with self.assertRaises(TypeError):
+            info = Info({'sub_info_data': [None, {'test':'test'}]}, preserve_data=True)
+            info.load_attr_info_list('sub_info_data', Info)
+
+    def test_load_attr_info_list_on_string(self):
+        with self.assertRaises(TypeError):
+            info = Info({'sub_info_data': 'test'}, preserve_data=True)
+            info.load_attr_info_list('sub_info_data', Info)
