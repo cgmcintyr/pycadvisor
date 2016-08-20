@@ -29,6 +29,11 @@ class TestInfo(unittest.TestCase):
         info.load_attr('test')
         self.assertEqual(info.test, None)
 
+    def test_subscriptable(self):
+        info = Info({})
+        setattr(info, 'test', 1)
+        self.assertEqual(info['test'], 1)
+
     def test_load_attr_on_invalid_name(self):
         info = Info({'1': 1}, preserve_data=True)
         info.load_attr('1')
