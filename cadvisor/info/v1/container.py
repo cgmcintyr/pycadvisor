@@ -4,8 +4,8 @@ from __future__ import absolute_import, division, print_function
 from cadvisor.info.info import Info
 
 class ContainerInfo(Info):
-    def __init__(self, dictionary):
-        Info.__init__(self, dictionary)
+    def __init__(self, dictionary, **kwargs):
+        Info.__init__(self, dictionary, **kwargs)
 
     def setup(self):
         # Container Reference

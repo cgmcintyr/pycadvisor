@@ -5,8 +5,8 @@ from cadvisor.info.info import Info
 
 
 class MachineInfo(Info):
-    def __init__(self, dictionary):
-        Info.__init__(self, dictionary)
+    def __init__(self, dictionary, **kwargs):
+        Info.__init__(self, dictionary, **kwargs)
 
     def setup(self):
         self.load_attr('num_cores', attr='num_cores')
@@ -25,8 +25,8 @@ class MachineInfo(Info):
         self.load_attr('instance_id', attr='instance_id')
 
 class FsInfo(Info):
-    def __init__(self, dictionary):
-        Info.__init__(self, dictionary)
+    def __init__(self, dictionary, **kwargs):
+        Info.__init__(self, dictionary, **kwargs)
 
     def setup(self):
         self.load_attr('device', attr='device')
@@ -36,8 +36,8 @@ class FsInfo(Info):
         self.load_attr('inodes', attr='inodes')
 
 class DiskInfo(Info):
-    def __init__(self, dictionary):
-        Info.__init__(self, dictionary)
+    def __init__(self, dictionary, **kwargs):
+        Info.__init__(self, dictionary, **kwargs)
 
     def setup(self):
         self.load_attr('name', attr='name')
@@ -47,8 +47,8 @@ class DiskInfo(Info):
         self.load_attr('scheduler', attr='scheduler')
 
 class NetInfo(Info):
-    def __init__(self, dictionary):
-        Info.__init__(self, dictionary)
+    def __init__(self, dictionary, **kwargs):
+        Info.__init__(self, dictionary, **kwargs)
 
     def setup(self):
         self.load_attr('name', attr='name')
@@ -57,8 +57,8 @@ class NetInfo(Info):
         self.load_attr('mtu', attr='mtu')
 
 class Node(Info):
-    def __init__(self, dictionary):
-        Info.__init__(self, dictionary)
+    def __init__(self, dictionary, **kwargs):
+        Info.__init__(self, dictionary, **kwargs)
 
     def setup(self):
         self.load_attr('node_id', attr='node_id')
@@ -69,8 +69,8 @@ class Node(Info):
 
 
 class Core(Info):
-    def __init__(self, dictionary):
-        Info.__init__(self, dictionary)
+    def __init__(self, dictionary, **kwargs):
+        Info.__init__(self, dictionary, **kwargs)
 
     def setup(self):
         self.load_attr('core_id', attr='core_id')
@@ -78,8 +78,8 @@ class Core(Info):
         self.load_attr_object_list('caches', Cache)
 
 class Cache(Info):
-    def __init__(self, dictionary):
-        Info.__init__(self, dictionary)
+    def __init__(self, dictionary, **kwargs):
+        Info.__init__(self, dictionary, **kwargs)
 
     def setup(self):
         self.load_attr('size', attr='size')
