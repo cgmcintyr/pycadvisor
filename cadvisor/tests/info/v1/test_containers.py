@@ -31,3 +31,26 @@ class TestV1ContainerInfo(unittest.TestCase):
         container = ContainerInfo({'labels':{'test':'label', 'test2':'label2'}})
         self.assertEqual(container.labels, {'test':'label', 'test2':'label2'})
 
+    def test_init_embedded_reference_parent(self):
+        container = ContainerInfo({})
+        self.assertEqual(container.reference.parent, container)
+
+    def test_init_embedded_reference_id(self):
+        container = ContainerInfo({'id': 'test'})
+        self.assertEqual(container.reference.container_id, 'test')
+
+    def test_init_embedded_reference_name(self):
+        container = ContainerInfo({'name': 'test'})
+        self.assertEqual(container.reference.name, 'test')
+
+    def test_init_embedded_reference_aliases(self):
+        container = ContainerInfo({'aliases':'test'})
+        self.assertEqual(container.reference.aliases, 'test')
+
+    def test_init_embedded_reference_namespace(self):
+        container = ContainerInfo({'namespace':['test', 'test2']})
+        self.assertEqual(container.reference.namespace, ['test', 'test2'])
+
+    def test_init_embedded_reference_labels(self):
+        container = ContainerInfo({'labels':{'test':'label', 'test2':'label2'}})
+        self.assertEqual(container.reference.labels, {'test':'label', 'test2':'label2'})
