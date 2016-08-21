@@ -54,3 +54,9 @@ class TestV1ContainerInfo(unittest.TestCase):
     def test_init_embedded_reference_labels(self):
         container = ContainerInfo({'labels':{'test':'label', 'test2':'label2'}})
         self.assertEqual(container.reference.labels, {'test':'label', 'test2':'label2'})
+
+    def test_init_subcontainers(self):
+        container = ContainerInfo({'subcontainers': [{'id': 'test'}, {'id':'test2'}]})
+        self.assertEqual(len(container.subcontainers), 2)
+        self.assertEqual(container.subcontainers[0].container_id, 'test')
+        self.assertEqual(container.subcontainers[1].container_id, 'test2')

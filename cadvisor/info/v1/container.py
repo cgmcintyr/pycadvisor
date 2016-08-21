@@ -11,6 +11,7 @@ class ContainerInfo(Info):
 
     def setup(self):
         self.reference = ContainerReference(self._data, parent=self)
+        self.load_attr_info_list('subcontainers', ContainerReference)
 
 class ContainerReference(Info):
     def __init__(self, dictionary, parent=None, **kwargs):
@@ -32,7 +33,7 @@ class ContainerReference(Info):
     def __validate_parent(self, parent):
         if parent is None:
             pass
-        if parent.__class__ is not ContainerInfo:
-            msg = 'parent must have type None or be an instance ofContainerInfo'
+        elif parent.__class__ is not ContainerInfo:
+            msg = 'parent must have type None or be an instance of ContainerInfo'
             raise TypeError(msg)
         return True
