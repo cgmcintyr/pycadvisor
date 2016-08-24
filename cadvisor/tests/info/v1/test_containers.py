@@ -4,11 +4,14 @@ from __future__ import absolute_import, division, print_function
 import unittest
 import json
 
+from datetime import datetime
+
 import requests_mock
 
 import cadvisor.tests.mocks as mocks
-from cadvisor import Cadvisor
 from cadvisor.info.v1.container import ContainerInfo
+from cadvisor.info.v1.container import ContainerReference
+from cadvisor.info.v1.container import ContainerSpec
 
 class TestV1ContainerInfo(unittest.TestCase):
     def test_init_id(self):
@@ -60,3 +63,17 @@ class TestV1ContainerInfo(unittest.TestCase):
         self.assertEqual(len(container.subcontainers), 2)
         self.assertEqual(container.subcontainers[0].container_id, 'test')
         self.assertEqual(container.subcontainers[1].container_id, 'test2')
+
+    def test_init_container_reference_with_invalid_parent(self):
+        with self.assertRaises(TypeError):
+            class Object(object):
+                pass
+            ContainerReference({'id':'test'}, parent=Object())
+
+    def test_init_container_reference_parent_defaults_none(self):
+        self.assertEqual(ContainerReference({}).parent, None)
+
+    def test_container_spec_container_spec(self):
+        data = {'creation_time':'2016-08-24T21:19:24.623769018Z'}
+        time = datetime(2016, 8, 24, 21, 19, 24, 623769)
+        self.assertEqual(ContainerSpec(data).creation_time, time)

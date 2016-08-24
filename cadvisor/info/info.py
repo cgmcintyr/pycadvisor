@@ -25,10 +25,13 @@ class Info:
     def setup(self):
         return None
 
-    def load_attr(self, key, attr=None):
+    def load_attr(self, key, attr=None, convert=None):
         if attr is None: attr=key
-
         value = self._data.get(key)
+
+        if convert is not None:
+            value = convert(value)
+
         setattr(self, attr, value)
         return value
 
