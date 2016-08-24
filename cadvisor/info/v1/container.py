@@ -43,6 +43,16 @@ class ContainerSpec(Info):
     def setup(self):
         self.load_attr('creation_time', convert=self.__to_datetime)
 
+        self.load_attr('labels')
+        self.load_attr('envs')
+
+        self.load_attr('has_cpu')
+        self.load_attr('has_memory')
+        self.load_attr('has_network')
+        self.load_attr('has_filesystem')
+        self.load_attr('has_diskio')
+        self.load_attr('has_custom_metrics')
+
     @staticmethod
     def __to_datetime(value):
         go_time_format = '%Y-%m-%dT%H:%M:%S.%f'

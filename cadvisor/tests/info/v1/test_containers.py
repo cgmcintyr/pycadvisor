@@ -73,7 +73,36 @@ class TestV1ContainerInfo(unittest.TestCase):
     def test_init_container_reference_parent_defaults_none(self):
         self.assertEqual(ContainerReference({}).parent, None)
 
-    def test_container_spec_container_spec(self):
+    def test_init_container_spec_creation_time(self):
         data = {'creation_time':'2016-08-24T21:19:24.623769018Z'}
         time = datetime(2016, 8, 24, 21, 19, 24, 623769)
         self.assertEqual(ContainerSpec(data).creation_time, time)
+
+    def test_init_container_spec_labels(self):
+        labels = {'test':'test', 'test2':'test2'}
+        spec = ContainerSpec({'labels':labels})
+        self.assertEqual(spec.labels, labels)
+
+    def test_init_container_spec_envs(self):
+        envs = {'test':'test', 'test2':'test2'}
+        spec = ContainerSpec({'envs':envs})
+        self.assertEqual(spec.envs, envs)
+
+    def test_init_container_spec_has_cpu(self):
+        self.assertEqual(ContainerSpec({'has_cpu':True}).has_cpu, True)
+
+    def test_init_container_spec_has_memory(self):
+        self.assertEqual(ContainerSpec({'has_memory':True}).has_memory, True)
+
+    def test_init_container_spec_has_network(self):
+        self.assertEqual(ContainerSpec({'has_network':True}).has_network, True)
+
+    def test_init_container_spec_has_filesystem(self):
+        self.assertEqual(ContainerSpec({'has_filesystem':True}).has_filesystem, True)
+
+    def test_init_container_spec_has_diskio(self):
+        self.assertEqual(ContainerSpec({'has_diskio':True}).has_diskio, True)
+
+    def test_init_container_spec_has_custom_metrics(self):
+        self.assertEqual(ContainerSpec({'has_custom_metrics':True}).has_custom_metrics, True)
+

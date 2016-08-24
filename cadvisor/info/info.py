@@ -29,7 +29,7 @@ class Info:
         if attr is None: attr=key
         value = self._data.get(key)
 
-        if convert is not None:
+        if value and convert:
             value = convert(value)
 
         setattr(self, attr, value)
