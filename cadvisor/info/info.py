@@ -35,6 +35,16 @@ class Info:
         setattr(self, attr, value)
         return value
 
+    def load_attr_info(self, key, info_cls, attr=None, preserve_data=False):
+        if attr is None: attr=key
+        value = self._data.get(key)
+
+        if value:
+            value = info_cls(value, preserve_data=preserve_data)
+
+        setattr(self, attr, value)
+        return value
+
     def load_attr_info_list(self, key, info_cls, attr=None, preserve_data=False):
         if attr is None: attr=key
 

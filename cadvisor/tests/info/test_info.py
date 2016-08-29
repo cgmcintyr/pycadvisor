@@ -44,6 +44,17 @@ class TestInfo(unittest.TestCase):
             info.load_attr('1')
             info.load_attr('1')
 
+    def test_load_attr_info(self):
+        info = Info({'subinfo': {'test':True}}, preserve_data=True)
+        info.load_attr_info('subinfo', Info, preserve_data=True)
+        info.subinfo.load_attr('test')
+        self.assertEqual(info.subinfo.test, True)
+
+    def test_load_attr_info_on_none(self):
+        info = Info({'test': None}, preserve_data=True)
+        info.load_attr_info('test', Info)
+        self.assertEqual(info.test, None)
+
     def test_load_attr_info_list_on_none(self):
         info = Info({'test': None}, preserve_data=True)
         info.load_attr_info_list('test', Info)

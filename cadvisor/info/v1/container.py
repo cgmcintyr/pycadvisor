@@ -47,10 +47,10 @@ class ContainerSpec(Info):
         self.load_attr('envs')
 
         self.load_attr('has_cpu')
-        self.load_attr('cpu', convert=self.__to_cpuspec)
+        self.load_attr_info('cpu', CpuSpec)
 
         self.load_attr('has_memory')
-        self.load_attr('memory', convert=self.__to_memoryspec)
+        self.load_attr_info('memory', MemorySpec)
 
         self.load_attr('has_network')
         self.load_attr('has_filesystem')
@@ -63,14 +63,6 @@ class ContainerSpec(Info):
     def __to_datetime(value):
         go_time_format = '%Y-%m-%dT%H:%M:%S.%f'
         return datetime.strptime(value[:-4], go_time_format)
-
-    @staticmethod
-    def __to_cpuspec(value):
-        return CpuSpec(value)
-
-    @staticmethod
-    def __to_memoryspec(value):
-        return MemorySpec(value)
 
 class CpuSpec(Info):
     def setup(self):
