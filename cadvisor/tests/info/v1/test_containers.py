@@ -12,6 +12,9 @@ import cadvisor.tests.mocks as mocks
 from cadvisor.info.v1.container import ContainerInfo
 from cadvisor.info.v1.container import ContainerReference
 from cadvisor.info.v1.container import ContainerSpec
+from cadvisor.info.v1.container import CpuSpec
+from cadvisor.info.v1.container import MemorySpec
+from cadvisor.info.v1.container import MetricSpec
 
 class TestV1ContainerInfo(unittest.TestCase):
     def test_init_id(self):
@@ -91,8 +94,22 @@ class TestV1ContainerInfo(unittest.TestCase):
     def test_init_container_spec_has_cpu(self):
         self.assertEqual(ContainerSpec({'has_cpu':True}).has_cpu, True)
 
+    def test_init_container_spec_cpu(self):
+        data = {'limit':12345}
+        cpu = CpuSpec(data)
+        container = ContainerSpec({'cpu':data})
+        self.assertEqual(container.cpu.__class__, CpuSpec)
+        self.assertEqual(container.cpu.limit, cpu.limit)
+
     def test_init_container_spec_has_memory(self):
         self.assertEqual(ContainerSpec({'has_memory':True}).has_memory, True)
+
+    def test_init_container_spec_memory(self):
+        data = {'reservation':12345}
+        memory = MemorySpec(data)
+        container = ContainerSpec({'memory':data})
+        self.assertEqual(container.memory.__class__, MemorySpec)
+        self.assertEqual(container.memory.reservation, memory.reservation)
 
     def test_init_container_spec_has_network(self):
         self.assertEqual(ContainerSpec({'has_network':True}).has_network, True)
@@ -106,3 +123,47 @@ class TestV1ContainerInfo(unittest.TestCase):
     def test_init_container_spec_has_custom_metrics(self):
         self.assertEqual(ContainerSpec({'has_custom_metrics':True}).has_custom_metrics, True)
 
+    def test_metric_spec_creates_list(self):
+        container = ContainerSpec({'custom_metrics':[{'name':'test'},{'name':'test'}]})
+        self.assertEqual(len(container.custom_metrics), 2)
+        self.assertTrue(all(isinstance(x, MetricSpec) for x in container.custom_metrics))
+
+    def test_metric_spec_list_of_correct_type(self):
+        machine = ContainerSpec({'custom_metrics':[{'name':'test'},{'name':'test'}]})
+        self.assertTrue(all(isinstance(x, MetricSpec) for x in machine.custom_metrics))
+
+    def test_init_cpu_spec_limit(self):
+        self.assertEqual(CpuSpec({'limit':True}).limit, True)
+
+    def test_init_cpu_spec_max_limit(self):
+        self.assertEqual(CpuSpec({'max_limit':True}).max_limit, True)
+
+    def test_init_cpu_spec_mask(self):
+        self.assertEqual(CpuSpec({'mask': True}).mask, True)
+
+    def test_init_cpu_spec_quota(self):
+        self.assertEqual(CpuSpec({'quota':True}).quota, True)
+
+    def test_init_cpu_spec_period(self):
+        self.assertEqual(CpuSpec({'period':True}).period, True)
+
+    def test_init_memory_spec_limit(self):
+        self.assertEqual(MemorySpec({'limit':True}).limit, True)
+
+    def test_init_memory_spec_reservation(self):
+        self.assertEqual(MemorySpec({'reservation':True}).reservation, True)
+
+    def test_init_memory_spec_swap_limit(self):
+        self.assertEqual(MemorySpec({'swap_limit':True}).swap_limit, True)
+
+    def test_init_metric_spec_name(self):
+        self.assertEqual(MetricSpec({'name':True}).name, True)
+
+    def test_init_metric_spec_type(self):
+        self.assertEqual(MetricSpec({'type':True}).type, True)
+
+    def test_init_metric_spec_format(self):
+        self.assertEqual(MetricSpec({'format':True}).format, True)
+
+    def test_init_metric_spec_units(self):
+        self.assertEqual(MetricSpec({'units':True}).units, True)
