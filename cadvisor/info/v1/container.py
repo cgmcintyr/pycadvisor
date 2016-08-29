@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function
 
-from collections import namedtuple
 from datetime import datetime
 
 from cadvisor.info.info import Info
+from cadvisor.info.v1.metric import MetricSpec
 
 class ContainerInfo(Info):
     def setup(self):
@@ -85,10 +85,3 @@ class MemorySpec(Info):
         self.load_attr('limit')
         self.load_attr('reservation')
         self.load_attr('swap_limit')
-
-class MetricSpec(Info):
-    def setup(self):
-        self.load_attr('name')
-        self.load_attr('type')
-        self.load_attr('format')
-        self.load_attr('units')

@@ -6,15 +6,12 @@ import json
 
 from datetime import datetime
 
-import requests_mock
-
-import cadvisor.tests.mocks as mocks
 from cadvisor.info.v1.container import ContainerInfo
 from cadvisor.info.v1.container import ContainerReference
 from cadvisor.info.v1.container import ContainerSpec
 from cadvisor.info.v1.container import CpuSpec
 from cadvisor.info.v1.container import MemorySpec
-from cadvisor.info.v1.container import MetricSpec
+from cadvisor.info.v1.metric import MetricSpec
 
 class TestV1ContainerInfo(unittest.TestCase):
     def test_init_id(self):
@@ -155,15 +152,3 @@ class TestV1ContainerInfo(unittest.TestCase):
 
     def test_init_memory_spec_swap_limit(self):
         self.assertEqual(MemorySpec({'swap_limit':True}).swap_limit, True)
-
-    def test_init_metric_spec_name(self):
-        self.assertEqual(MetricSpec({'name':True}).name, True)
-
-    def test_init_metric_spec_type(self):
-        self.assertEqual(MetricSpec({'type':True}).type, True)
-
-    def test_init_metric_spec_format(self):
-        self.assertEqual(MetricSpec({'format':True}).format, True)
-
-    def test_init_metric_spec_units(self):
-        self.assertEqual(MetricSpec({'units':True}).units, True)
