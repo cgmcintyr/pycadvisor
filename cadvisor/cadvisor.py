@@ -22,3 +22,15 @@ class Cadvisor(object):
     def get_containers_info(self, name):
         data = api.get_json_data(api.containers_info_url(self.base_url, name))
         return ContainerInfo(data)
+
+    def get_subcontainers_info(self, name):
+        data = api.get_json_data(api.subcontainer_info_url(self.base_url), name)
+        return [ContainerInfo(container) for container in data]
+
+    def get_docker_container(self, name):
+        data = api.get_json_data(api.docker_info_url(self.base_urL), name)
+        return ContainerInfo(data)
+
+    def get_all_docker_containers(self):
+        data = api.get_json_data(api.docker_info_url('/'), name)
+        return [ContainerInfo(container) for container in data]
