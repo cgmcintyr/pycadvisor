@@ -3,7 +3,6 @@ from __future__ import absolute_import, division, print_function
 
 from cadvisor.info.info import Info
 
-
 class MachineInfo(Info):
     def __init__(self, dictionary, **kwargs):
         Info.__init__(self, dictionary, **kwargs)
