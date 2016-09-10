@@ -9,6 +9,43 @@ from datetime import datetime
 from cadvisor.info.v1.container.stats import TcpStats
 from cadvisor.info.v1.container.stats import FsStats
 
+class NetworkStats(unittest.TestCase):
+    def test_init_network_stats_name(self):
+        netstats = NetworkStats({'name':123})
+        self.assertEqual(netstats.name, 123)
+
+    def test_init_network_stats_rx_bytes(self):
+        netstats = NetworkStats({'rx_bytes':123})
+        self.assertEqual(netstats.rx_bytes, 123)
+
+    def test_init_network_stats_rx_packets(self):
+        netstats = NetworkStats({'rx_packets':123})
+        self.assertEqual(netstats.rx_packets, 123)
+
+    def test_init_network_stats_rx_errors(self):
+        netstats = NetworkStats({'rx_errors':123})
+        self.assertEqual(netstats.rx_errors, 123)
+
+    def test_init_network_stats_rx_dropped(self):
+        netstats = NetworkStats({'rx_dropped':123})
+        self.assertEqual(netstats.rx_dropped, 123)
+
+    def test_init_network_stats_tx_bytes(self):
+        netstats = NetworkStats({'tx_bytes':123})
+        self.assertEqual(netstats.tx_bytes, 123)
+
+    def test_init_network_stats_tx_packets(self):
+        netstats = NetworkStats({'tx_packets':123})
+        self.assertEqual(netstats.tx_packets, 123)
+
+    def test_init_network_stats_tx_errors(self):
+        netstats = NetworkStats({'tx_errors':123})
+        self.assertEqual(netstats.tx_errors, 123)
+
+    def test_init_network_stats_tx_dropped(self):
+        netstats = NetworkStats({'tx_dropped':123})
+        self.assertEqual(netstats.tx_dropped, 123)
+
 class TestV1ContainerStatsTcp(unittest.TestCase):
     def test_init_tcp_stats_established(self):
         tcpstats = TcpStats({'established':123})
