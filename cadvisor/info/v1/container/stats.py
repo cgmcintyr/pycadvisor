@@ -122,8 +122,8 @@ class NetworkStats(Info):
     def setup(self):
         InterfaceStats(self._data, parent=self)
         self.load_attr_info_list('interfaces', InterfaceStats)
-        self.load_attr_info('tcp', TcpStat)
-        self.load_attr_info('tcp6', TcpStat)
+        self.load_attr_info('tcp', TcpStats)
+        self.load_attr_info('tcp6', TcpStats)
 
 class TcpStats(Info):
     def setup(self):
