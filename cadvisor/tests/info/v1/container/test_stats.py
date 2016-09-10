@@ -8,8 +8,9 @@ from datetime import datetime
 
 from cadvisor.info.v1.container.stats import TcpStats
 from cadvisor.info.v1.container.stats import FsStats
+from cadvisor.info.v1.container.stats import NetworkStats
 
-class NetworkStats(unittest.TestCase):
+class TestV1ContainerNetworkStats(unittest.TestCase):
     def test_init_network_stats_name(self):
         netstats = NetworkStats({'name':123})
         self.assertEqual(netstats.name, 123)
