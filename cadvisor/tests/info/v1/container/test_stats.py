@@ -47,7 +47,7 @@ class TestV1ContainerNetworkStats(unittest.TestCase):
         netstats = NetworkStats({'tx_dropped':123})
         self.assertEqual(netstats.tx_dropped, 123)
 
-class TestV1ContainerStatsTcp(unittest.TestCase):
+class TestV1ContainerTcpStats(unittest.TestCase):
     def test_init_tcp_stats_established(self):
         tcpstats = TcpStats({'established':123})
         self.assertEqual(tcpstats.established, 123)
@@ -92,7 +92,7 @@ class TestV1ContainerStatsTcp(unittest.TestCase):
         tcpstats = TcpStats({'closing':123})
         self.assertEqual(tcpstats.Closing, 123)
 
-class TestV1ContainerStatsTcp(unittest.TestCase):
+class TestV1ContainerFsStats(unittest.TestCase):
     def test_init_fs_stats_device(self):
         fsstats = FsStats({'device':123})
         self.assertEqual(fsstats.device, 123)
