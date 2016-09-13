@@ -14,6 +14,66 @@ from cadvisor.info.v1.container.stats import MemoryStatsMemoryData
 from cadvisor.info.v1.container.stats import MemoryStats
 from cadvisor.info.v1.container.stats import DiskIoStats
 from cadvisor.info.v1.container.stats import PerDiskStats
+from cadvisor.info.v1.container.stats import LoadStats
+from cadvisor.info.v1.container.stats import CpuCFS
+from cadvisor.info.v1.container.stats import CpuUsage
+from cadvisor.info.v1.container.stats import CpuStats
+
+class TestV1CpuStats(unittest.TestCase):
+    def test_init_cpu_stats_load_average(self):
+        cpu_stats = CpuStats({'load_average':123})
+        self.assertEqual(cpu_stats.load_average, 123)
+
+class TestV1CpuUsage(unittest.TestCase):
+    def test_init_cpu_usage_total(self):
+        cpu_usage = CpuUsage({'total':123})
+        self.assertEqual(cpu_usage.total, 123)
+
+    def test_init_cpu_usage_per_cpu_usage(self):
+        cpu_usage = CpuUsage({'per_cpu_usage':123})
+        self.assertEqual(cpu_usage.per_cpu_usage, 123)
+
+    def test_init_cpu_usage_user(self):
+        cpu_usage = CpuUsage({'user':123})
+        self.assertEqual(cpu_usage.user, 123)
+
+    def test_init_cpu_usage_system(self):
+        cpu_usage = CpuUsage({'system':123})
+        self.assertEqual(cpu_usage.system, 123)
+
+class TestV1CpuCFS(unittest.TestCase):
+    def test_init_cpu_cFS_periods(self):
+        cpu_cfs = CpuCFS({'periods':123})
+        self.assertEqual(cpu_cfs.periods, 123)
+
+    def test_init_cpu_cFS_throttled_periods(self):
+        cpu_cfs = CpuCFS({'throttled_periods':123})
+        self.assertEqual(cpu_cfs.throttled_periods, 123)
+
+    def test_init_cpu_cFS_throttled_time(self):
+        cpu_cfs = CpuCFS({'throttled_time':123})
+        self.assertEqual(cpu_cfs.throttled_time, 123)
+
+class TestV1LoadStats(unittest.TestCase):
+    def test_init_load_stats_nr_sleeping(self):
+        load_stats = LoadStats({'nr_sleeping':123})
+        self.assertEqual(load_stats.nr_sleeping, 123)
+
+    def test_init_load_stats_nr_running(self):
+        load_stats = LoadStats({'nr_running':123})
+        self.assertEqual(load_stats.nr_running, 123)
+
+    def test_init_load_stats_nr_stopped(self):
+        load_stats = LoadStats({'nr_stopped':123})
+        self.assertEqual(load_stats.nr_stopped, 123)
+
+    def test_init_load_stats_nr_uninterruptible(self):
+        load_stats = LoadStats({'nr_uninterruptible':123})
+        self.assertEqual(load_stats.nr_uninterruptible, 123)
+
+    def test_init_load_stats_nr_io_wait(self):
+        load_stats = LoadStats({'nr_io_wait':123})
+        self.assertEqual(load_stats.nr_io_wait, 123)
 
 class TestV1PerDiskStats(unittest.TestCase):
     def test_init_per_disk_stats_major(self):

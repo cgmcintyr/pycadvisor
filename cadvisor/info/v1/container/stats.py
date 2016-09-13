@@ -31,14 +31,14 @@ class ContainerStats(Info):
 
 class CpuStats(Info):
     def setup(self):
-        self.load_attr_info('usage', CpuUseage)
+        self.load_attr_info('usage', CpuUsage)
         self.load_attr_info('cfs', CpuCFS)
         self.load_attr('load_average')
 
 class CpuUsage(Info):
     def setup(self):
         self.load_attr('total')
-        self.load_attr('per_cpu_usage,omitempty')
+        self.load_attr('per_cpu_usage')
         self.load_attr('user')
         self.load_attr('system')
 
