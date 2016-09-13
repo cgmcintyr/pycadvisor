@@ -13,39 +13,53 @@ from cadvisor.info.v1.container.stats import InterfaceStats
 from cadvisor.info.v1.container.stats import MemoryStatsMemoryData
 from cadvisor.info.v1.container.stats import MemoryStats
 from cadvisor.info.v1.container.stats import DiskIoStats
+from cadvisor.info.v1.container.stats import PerDiskStats
+
+class TestV1PerDiskStats(unittest.TestCase):
+    def test_init_per_disk_stats_major(self):
+        per_disk_stats = PerDiskStats({'major':123})
+        self.assertEqual(per_disk_stats.major, 123)
+
+    def test_init_per_disk_stats_minor(self):
+        per_disk_stats = PerDiskStats({'minor':123})
+        self.assertEqual(per_disk_stats.minor, 123)
+
+    def test_init_per_disk_stats_stats(self):
+        per_disk_stats = PerDiskStats({'stats':123})
+        self.assertEqual(per_disk_stats.stats, 123)
 
 class TestV1DiskIoStats(unittest.TestCase):
     def test_init_disk_io_stats_io_service_bytes(self):
-        diskio_stats = DiskIoStats({'io_service_bytes':123})
-        self.assertEqual(diskio_stats.io_service_bytes, 123)
+        disk_io_stats = DiskIoStats({'io_service_bytes':123})
+        self.assertEqual(disk_io_stats.io_service_bytes, 123)
 
     def test_init_disk_io_stats_io_serviced(self):
-        diskio_stats = DiskIoStats({'io_serviced':123})
-        self.assertEqual(diskio_stats.io_serviced, 123)
+        disk_io_stats = DiskIoStats({'io_serviced':123})
+        self.assertEqual(disk_io_stats.io_serviced, 123)
 
     def test_init_disk_io_stats_io_queued(self):
-        diskio_stats = DiskIoStats({'io_queued':123})
-        self.assertEqual(diskio_stats.io_queued, 123)
+        disk_io_stats = DiskIoStats({'io_queued':123})
+        self.assertEqual(disk_io_stats.io_queued, 123)
 
     def test_init_disk_io_stats_sectors(self):
-        diskio_stats = DiskIoStats({'sectors':123})
-        self.assertEqual(diskio_stats.sectors, 123)
+        disk_io_stats = DiskIoStats({'sectors':123})
+        self.assertEqual(disk_io_stats.sectors, 123)
 
     def test_init_disk_io_stats_io_service_time(self):
-        diskio_stats = DiskIoStats({'io_service_time':123})
-        self.assertEqual(diskio_stats.io_service_time, 123)
+        disk_io_stats = DiskIoStats({'io_service_time':123})
+        self.assertEqual(disk_io_stats.io_service_time, 123)
 
     def test_init_disk_io_stats_io_wait_time(self):
-        diskio_stats = DiskIoStats({'io_wait_time':123})
-        self.assertEqual(diskio_stats.io_wait_time, 123)
+        disk_io_stats = DiskIoStats({'io_wait_time':123})
+        self.assertEqual(disk_io_stats.io_wait_time, 123)
 
     def test_init_disk_io_stats_io_merged(self):
-        diskio_stats = DiskIoStats({'io_merged':123})
-        self.assertEqual(diskio_stats.io_merged, 123)
+        disk_io_stats = DiskIoStats({'io_merged':123})
+        self.assertEqual(disk_io_stats.io_merged, 123)
 
     def test_init_disk_io_stats_io_time(self):
-        diskio_stats = DiskIoStats({'io_time':123})
-        self.assertEqual(diskio_stats.io_time, 123)
+        disk_io_stats = DiskIoStats({'io_time':123})
+        self.assertEqual(disk_io_stats.io_time, 123)
 
 class TestV1MemoryStats(unittest.TestCase):
     def test_init_memory_stats_usage(self):
