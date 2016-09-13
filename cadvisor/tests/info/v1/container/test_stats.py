@@ -11,6 +11,41 @@ from cadvisor.info.v1.container.stats import FsStats
 from cadvisor.info.v1.container.stats import NetworkStats
 from cadvisor.info.v1.container.stats import InterfaceStats
 from cadvisor.info.v1.container.stats import MemoryStatsMemoryData
+from cadvisor.info.v1.container.stats import MemoryStats
+
+class TestV1MemoryStats(unittest.TestCase):
+    def test_init_memory_stats_usage(self):
+        memstats = MemoryStats({'usage':123})
+        self.assertEqual(memstats.usage, 123)
+
+    def test_init_memory_stats_cache(self):
+        memstats = MemoryStats({'cache':123})
+        self.assertEqual(memstats.cache, 123)
+
+    def test_init_memory_stats_rss(self):
+        memstats = MemoryStats({'rss':123})
+        self.assertEqual(memstats.rss, 123)
+
+    def test_init_memory_stats_swap(self):
+        memstats = MemoryStats({'swap':123})
+        self.assertEqual(memstats.swap, 123)
+
+    def test_init_memory_stats_working_set(self):
+        memstats = MemoryStats({'working_set':123})
+        self.assertEqual(memstats.working_set, 123)
+
+    def test_init_memory_stats_failcnt(self):
+        memstats = MemoryStats({'failcnt':123})
+        self.assertEqual(memstats.failcnt, 123)
+
+    def test_init_memory_stats_container_data_correct_type(self):
+        memstats = MemoryStats({'container_data':{'test':123}})
+        self.assertEqual(memstats.container_data.__class__, MemoryStatsMemoryData)
+
+    def test_init_memory_stats_hierarchical_data_correct_type(self):
+        memstats = MemoryStats({'hierarchical_data':{'test':123}})
+        self.assertEqual(memstats.hierarchical_data.__class__, MemoryStatsMemoryData)
+
 
 class TestV1MemoryStatsMemoryData(unittest.TestCase):
     def test_init_memory_stats_memory_data_pgfault(self):
@@ -117,7 +152,7 @@ class TestV1ContainerTcpStats(unittest.TestCase):
         self.assertEqual(tcp_stats.fin_wait2, 123)
 
     def test_init_tcp_stats_time_wait(self):
-        tcp_stats = TcpStats({'FinWait3':123})
+        tcp_stats = TcpStats({'TimeWait':123})
         self.assertEqual(tcp_stats.time_wait, 123)
 
     def test_init_tcp_stats_close(self):
