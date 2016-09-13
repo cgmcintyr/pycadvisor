@@ -12,6 +12,40 @@ from cadvisor.info.v1.container.stats import NetworkStats
 from cadvisor.info.v1.container.stats import InterfaceStats
 from cadvisor.info.v1.container.stats import MemoryStatsMemoryData
 from cadvisor.info.v1.container.stats import MemoryStats
+from cadvisor.info.v1.container.stats import DiskIoStats
+
+class TestV1DiskIoStats(unittest.TestCase):
+    def test_init_disk_io_stats_io_service_bytes(self):
+        diskio_stats = DiskIoStats({'io_service_bytes':123})
+        self.assertEqual(diskio_stats.io_service_bytes, 123)
+
+    def test_init_disk_io_stats_io_serviced(self):
+        diskio_stats = DiskIoStats({'io_serviced':123})
+        self.assertEqual(diskio_stats.io_serviced, 123)
+
+    def test_init_disk_io_stats_io_queued(self):
+        diskio_stats = DiskIoStats({'io_queued':123})
+        self.assertEqual(diskio_stats.io_queued, 123)
+
+    def test_init_disk_io_stats_sectors(self):
+        diskio_stats = DiskIoStats({'sectors':123})
+        self.assertEqual(diskio_stats.sectors, 123)
+
+    def test_init_disk_io_stats_io_service_time(self):
+        diskio_stats = DiskIoStats({'io_service_time':123})
+        self.assertEqual(diskio_stats.io_service_time, 123)
+
+    def test_init_disk_io_stats_io_wait_time(self):
+        diskio_stats = DiskIoStats({'io_wait_time':123})
+        self.assertEqual(diskio_stats.io_wait_time, 123)
+
+    def test_init_disk_io_stats_io_merged(self):
+        diskio_stats = DiskIoStats({'io_merged':123})
+        self.assertEqual(diskio_stats.io_merged, 123)
+
+    def test_init_disk_io_stats_io_time(self):
+        diskio_stats = DiskIoStats({'io_time':123})
+        self.assertEqual(diskio_stats.io_time, 123)
 
 class TestV1MemoryStats(unittest.TestCase):
     def test_init_memory_stats_usage(self):
@@ -45,7 +79,6 @@ class TestV1MemoryStats(unittest.TestCase):
     def test_init_memory_stats_hierarchical_data_correct_type(self):
         memstats = MemoryStats({'hierarchical_data':{'test':123}})
         self.assertEqual(memstats.hierarchical_data.__class__, MemoryStatsMemoryData)
-
 
 class TestV1MemoryStatsMemoryData(unittest.TestCase):
     def test_init_memory_stats_memory_data_pgfault(self):
