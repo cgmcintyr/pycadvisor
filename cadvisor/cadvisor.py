@@ -31,6 +31,6 @@ class Cadvisor(object):
         data = api.get_json_data(api.docker_info_url(self.base_url, name))
         return ContainerInfo(data)
 
-    def get_all_docker_containers(self):
-        data = api.get_json_data(api.docker_info_url(self.base_url), '')
+    def get_all_docker_containers_info(self):
+        data = api.get_json_data(api.docker_info_url(self.base_url, ''))
         return [ContainerInfo(container) for container in data]
