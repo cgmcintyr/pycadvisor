@@ -8,13 +8,13 @@ from cadvisor.info.v1.metric import MetricVal
 
 class ContainerStats(Info):
     def setup(self):
-        self.load_attr('timestamp', convert=__to_datetime)
+        self.load_attr('timestamp', convert=self.__to_datetime)
         self.load_attr_info('cpu', CpuStats)
-        self.load_attr_info('diskio', DiskIOStats)
+        self.load_attr_info('diskio', DiskIoStats)
         self.load_attr_info('memory', MemoryStats)
-        self.load_attr_info_list('filesystem', FsInfo)
+        self.load_attr_info_list('filesystem', FsStats)
         self.load_attr_info('task_stats', LoadStats)
-        self.load_attr('custom_metrics', convert=__to_string_metric_map)
+        self.load_attr('custom_metrics', convert=self.__to_string_metric_map)
 
     @staticmethod
     def __to_datetime(value):

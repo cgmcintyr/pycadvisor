@@ -18,11 +18,54 @@ from cadvisor.info.v1.container.stats import LoadStats
 from cadvisor.info.v1.container.stats import CpuCFS
 from cadvisor.info.v1.container.stats import CpuUsage
 from cadvisor.info.v1.container.stats import CpuStats
+from cadvisor.info.v1.container.stats import ContainerStats
+
+class TestV1ContainerStats(unittest.TestCase):
+    def test_init_container_stats_timestamp(self):
+        container_stats = ContainerStats({'timestamp':'2016-08-24T21:19:24.623769018Z'})
+        time = datetime(2016, 8, 24, 21, 19, 24, 623769)
+        self.assertEqual(container_stats.timestamp, time)
+
+    def test_init_container_stats_cpu(self):
+        container_stats = ContainerStats({'cpu':{'load_average':123}})
+        self.assertEqual(container_stats.cpu.__class__, CpuStats)
+        self.assertEqual(container_stats.cpu.load_average, 123)
+
+    def test_init_container_stats_diskio(self):
+        container_stats = ContainerStats({'diskio':{'io_service_bytes':123}})
+        self.assertEqual(container_stats.diskio.__class__, DiskIoStats)
+        self.assertEqual(container_stats.diskio.io_service_bytes, 123)
+
+    def test_init_container_stats_memory(self):
+        container_stats = ContainerStats({'memory':{'usage':123}})
+        self.assertEqual(container_stats.memory.__class__, MemoryStats)
+        self.assertEqual(container_stats.memory.usage, 123)
+
+    def test_init_container_stats_filesystem(self):
+        container_stats = ContainerStats({'filesystem':[{'device':123},]})
+        self.assertEqual(len(container_stats.filesystem), 1)
+        self.assertEqual(container_stats.filesystem[0].__class__, FsStats)
+        self.assertEqual(container_stats.filesystem[0].device, 123)
+
+    def test_init_container_stats_task_stats(self):
+        container_stats = ContainerStats({'task_stats':{'nr_sleeping':123}})
+        self.assertEqual(container_stats.task_stats.__class__, LoadStats)
+        self.assertEqual(container_stats.task_stats.nr_sleeping, 123)
 
 class TestV1CpuStats(unittest.TestCase):
     def test_init_cpu_stats_load_average(self):
         cpu_stats = CpuStats({'load_average':123})
         self.assertEqual(cpu_stats.load_average, 123)
+
+    def test_init_cpu_stats_usage(self):
+        cpu_stats = CpuStats({'usage':{'total':123}})
+        self.assertEqual(cpu_stats.usage.__class__, CpuUsage)
+        self.assertEqual(cpu_stats.usage.total, 123)
+
+    def test_init_cpu_stats_cfs(self):
+        cpu_stats = CpuStats({'cfs':{'periods':123}})
+        self.assertEqual(cpu_stats.cfs.__class__, CpuCFS)
+        self.assertEqual(cpu_stats.cfs.periods, 123)
 
 class TestV1CpuUsage(unittest.TestCase):
     def test_init_cpu_usage_total(self):
