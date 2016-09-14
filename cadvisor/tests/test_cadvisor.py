@@ -11,7 +11,7 @@ from cadvisor import Cadvisor
 from cadvisor.info.v1.machine import MachineInfo
 from cadvisor.info.v1.container import ContainerInfo
 
-class TestClient(unittest.TestCase):
+class TestCadvisor(unittest.TestCase):
 
     URL = 'http://testurl.com/'
 
