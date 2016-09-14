@@ -6,6 +6,7 @@ import json
 
 from datetime import datetime
 
+from cadvisor.info.v1.metric import MetricVal
 from cadvisor.info.v1.container.stats import TcpStats
 from cadvisor.info.v1.container.stats import FsStats
 from cadvisor.info.v1.container.stats import NetworkStats
@@ -51,6 +52,13 @@ class TestV1ContainerStats(unittest.TestCase):
         container_stats = ContainerStats({'task_stats':{'nr_sleeping':123}})
         self.assertEqual(container_stats.task_stats.__class__, LoadStats)
         self.assertEqual(container_stats.task_stats.nr_sleeping, 123)
+
+    def test_init_container_stats_custom_metrics(self):
+        metric_list = [{'metric1':123}, {'metric2':456}]
+        container_stats = ContainerStats({'custom_metrics':{'test1':metric_list}})
+        self.assertEqual(len(container_stats.custom_metrics['test1']), 2)
+        self.assertEqual(container_stats.custom_metrics['test1'][0].__class__, MetricVal)
+        self.assertEqual(container_stats.custom_metrics['test1'][1].__class__, MetricVal)
 
 class TestV1CpuStats(unittest.TestCase):
     def test_init_cpu_stats_load_average(self):

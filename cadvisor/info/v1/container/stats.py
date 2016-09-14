@@ -23,11 +23,13 @@ class ContainerStats(Info):
 
     @staticmethod
     def __to_string_metric_map(value):
+        metric_map = {}
         for key in value.keys():
             metric_vals = []
             for metric in value[key]:
                 metric_vals.append(MetricVal(metric))
-            value[key] = metric_vals
+            metric_map[key] = metric_vals
+        return metric_map
 
 class CpuStats(Info):
     def setup(self):
