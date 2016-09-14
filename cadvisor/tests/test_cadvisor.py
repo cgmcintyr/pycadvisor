@@ -17,10 +17,10 @@ class TestCadvisor(unittest.TestCase):
 
     def setUp(self):
         self.container_name = 'name'
-        self.c = Cadvisor(TestClient.URL)
+        self.c = Cadvisor(TestCadvisor.URL)
 
     def test_cadvisor_initializes_with_base_url_ending_in_forward_slash(self):
-        self.assertEqual(self.c.base_url, TestClient.URL)
+        self.assertEqual(self.c.base_url, TestCadvisor.URL)
 
     def test_cadvisor_initializes_with_base_url_not_ending_in_forward_slash(self):
         url = 'http://url'
@@ -38,4 +38,11 @@ class TestCadvisor(unittest.TestCase):
             m.get('http://testurl.com/containers/test',text='{}', status_code=200)
             container = self.c.get_containers_info('test')
             self.assertIsInstance(container, ContainerInfo)
+
+    def test_get_subcontainers_info_returns_list_of_container_info_objects(self):
+        with requests_mock.mock() as m:
+            m.get('http://testurl.com/subcontainers/test',text='[{}, {}]', status_code=200)
+            subcontainers = self.c.get_subcontainers_info('test')
+            self.assertIsInstance(subcontainers, list)
+            self.assertTrue(all(isinstance(x, ContainerInfo) for x in subcontainers))
 
