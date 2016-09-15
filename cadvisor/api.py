@@ -5,6 +5,8 @@ try:
 except ImportError:
     from urlparse import urljoin
 
+SUPPORTED_VERSIONS = ['1.0', '1.1', '1.2', '1.3']
+
 def all_info_url(base_url):
     return base_url
 
