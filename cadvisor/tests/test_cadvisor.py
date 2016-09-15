@@ -28,6 +28,10 @@ class TestCadvisor(unittest.TestCase):
         self.c = Cadvisor(url, self.API)
         self.assertEqual(self.c.base_url, url + '/')
 
+    def test_cadvisor_unsupported_api_version_raises_value_error(self):
+        with self.assertRaises(ValueError):
+            Cadvisor(self.URL, 'lol')
+
     def test_get_machine_info_returns_machine_info_object(self):
         with requests_mock.mock() as m:
             url = '{}api/v{}/machine'.format(self.URL, self.API)
