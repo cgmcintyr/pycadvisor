@@ -36,9 +36,6 @@ class Cadvisor(object):
             m = 'Invalid api version number \'{}\'. Supported api versions: {}'
             raise ValueError(m.format(version, api.SUPPORTED_VERSIONS))
 
-    def get_all_info(self):
-        return self.__get_json_data(api.all_info_url(self.api_url))
-
     def get_machine_info(self):
         data = self.__get_json_data(api.machine_info_url(self.api_url))
         return MachineInfo(data)
