@@ -18,14 +18,14 @@ class TestInfo(unittest.TestCase):
         info = Info({'test': None}, preserve_data=True)
         self.assertEqual(info._data, {'test':None})
 
-    def test_load_attr(self):
+    def test__load_attr(self):
         info = Info({'test': 'test'}, preserve_data=True)
-        info.load_attr('test')
+        info._load_attr('test')
         self.assertEqual(info.test, 'test')
 
-    def test_load_attr_on_missing_key(self):
+    def test__load_attr_on_missing_key(self):
         info = Info({}, preserve_data=True)
-        info.load_attr('test')
+        info._load_attr('test')
         self.assertEqual(info.test, None)
 
     def test_subscriptable(self):
@@ -33,44 +33,44 @@ class TestInfo(unittest.TestCase):
         setattr(info, 'test', 1)
         self.assertEqual(info['test'], 1)
 
-    def test_load_attr_on_invalid_name(self):
+    def test__load_attr_on_invalid_name(self):
         info = Info({'1': 1}, preserve_data=True)
-        info.load_attr('1')
+        info._load_attr('1')
         self.assertEqual(info['1'], 1)
 
-    def test_load_attr_twice(self):
+    def test__load_attr_twice(self):
         info = Info({'1': 1}, preserve_data=True)
         with self.assertRaises(AttributeError):
-            info.load_attr('1')
-            info.load_attr('1')
+            info._load_attr('1')
+            info._load_attr('1')
 
-    def test_load_attr_info(self):
+    def test__load_attr_as(self):
         info = Info({'subinfo': {'test':True}}, preserve_data=True)
-        info.load_attr_info('subinfo', Info, preserve_data=True)
-        info.subinfo.load_attr('test')
+        info._load_attr_as('subinfo', Info, preserve_data=True)
+        info.subinfo._load_attr('test')
         self.assertEqual(info.subinfo.test, True)
 
-    def test_load_attr_info_on_none(self):
+    def test__load_attr_as_on_none(self):
         info = Info({'test': None}, preserve_data=True)
-        info.load_attr_info('test', Info)
+        info._load_attr_as('test', Info)
         self.assertEqual(info.test, None)
 
-    def test_load_attr_info_list_on_none(self):
+    def test__load_attr_as_list_of_on_none(self):
         info = Info({'test': None}, preserve_data=True)
-        info.load_attr_info_list('test', Info)
+        info._load_attr_as_list_of('test', Info)
         self.assertEqual(info.test, [])
 
-    def test_load_attr_info_list_on_list_of_none(self):
+    def test__load_attr_as_list_of_on_list_of_none(self):
         with self.assertRaises(TypeError):
             info = Info({'sub_info_data': [None, None]}, preserve_data=True)
-            info.load_attr_info_list('sub_info_data', Info)
+            info._load_attr_as_list_of('sub_info_data', Info)
 
-    def test_load_attr_info_list_on_list_mixed_none(self):
+    def test__load_attr_as_list_of_on_list_mixed_none(self):
         with self.assertRaises(TypeError):
             info = Info({'sub_info_data': [None, {'test':'test'}]}, preserve_data=True)
-            info.load_attr_info_list('sub_info_data', Info)
+            info._load_attr_as_list_of('sub_info_data', Info)
 
-    def test_load_attr_info_list_on_string(self):
+    def test__load_attr_as_list_of_on_string(self):
         with self.assertRaises(TypeError):
             info = Info({'sub_info_data': 'test'}, preserve_data=True)
-            info.load_attr_info_list('sub_info_data', Info)
+            info._load_attr_as_list_of('sub_info_data', Info)

@@ -9,23 +9,23 @@ from cadvisor.info.v1.container.stats import ContainerStats
 from cadvisor.info.v1.metric import MetricSpec, MetricVal
 
 class ContainerInfo(Info):
-    def setup(self):
+    def _setup(self):
         self.reference = ContainerReference(self._data, parent=self)
-        self.load_attr_info_list('subcontainers', ContainerReference)
-        self.load_attr_info('spec', ContainerSpec)
-        self.load_attr_info_list('stats', ContainerStats)
+        self._load_attr_as_list_of('subcontainers', ContainerReference)
+        self._load_attr_as('spec', ContainerSpec)
+        self._load_attr_as_list_of('stats', ContainerStats)
 
 class ContainerReference(Info):
     def __init__(self, dictionary, parent=None, **kwargs):
         if self.__validate_parent(parent): self.parent = parent
         Info.__init__(self, dictionary, **kwargs)
 
-    def setup(self):
-        self.load_attr('id', attr='container_id')
-        self.load_attr('name')
-        self.load_attr('aliases')
-        self.load_attr('namespace')
-        self.load_attr('labels')
+    def _setup(self):
+        self._load_attr('id', attr='container_id')
+        self._load_attr('name')
+        self._load_attr('aliases')
+        self._load_attr('namespace')
+        self._load_attr('labels')
 
         if self.parent:
             for k, v in vars(self).items():

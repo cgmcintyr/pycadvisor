@@ -4,22 +4,22 @@ from __future__ import absolute_import, division, print_function
 from cadvisor.info.info import Info
 
 class DockerStatus(Info):
-    def setup(self):
-        self.load_attr('version')
-        self.load_attr('kernel_version')
-        self.load_attr('os')
-        self.load_attr('hostname')
-        self.load_attr('root_dir')
-        self.load_attr('driver')
-        self.load_attr('driver_status')
-        self.load_attr('exec_driver')
-        self.load_attr('num_images')
-        self.load_attr('num_containers')
+    def _setup(self):
+        self._load_attr('version')
+        self._load_attr('kernel_version')
+        self._load_attr('os')
+        self._load_attr('hostname')
+        self._load_attr('root_dir')
+        self._load_attr('driver')
+        self._load_attr('driver_status')
+        self._load_attr('exec_driver')
+        self._load_attr('num_images')
+        self._load_attr('num_containers')
 
 class DockerImage(Info):
-    def setup(self):
-        self.load_attr('id')
-        self.load_attr('repo_tags')
-        self.load_attr('created')
-        self.load_attr('virtual_size')
-        self.load_attr('size')
+    def _setup(self):
+        self._load_attr('id')
+        self._load_attr('repo_tags')
+        self._load_attr('created')
+        self._load_attr('virtual_size')
+        self._load_attr('size')

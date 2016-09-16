@@ -10,24 +10,24 @@ class ContainerSpec(Info):
     def __init__(self, dictionary, **kwargs):
         Info.__init__(self, dictionary, **kwargs)
 
-    def setup(self):
-        self.load_attr('creation_time', convert=self.__to_datetime)
+    def _setup(self):
+        self._load_attr('creation_time', convert=self.__to_datetime)
 
-        self.load_attr('labels')
-        self.load_attr('envs')
+        self._load_attr('labels')
+        self._load_attr('envs')
 
-        self.load_attr('has_cpu')
-        self.load_attr_info('cpu', CpuSpec)
+        self._load_attr('has_cpu')
+        self._load_attr_as('cpu', CpuSpec)
 
-        self.load_attr('has_memory')
-        self.load_attr_info('memory', MemorySpec)
+        self._load_attr('has_memory')
+        self._load_attr_as('memory', MemorySpec)
 
-        self.load_attr('has_network')
-        self.load_attr('has_filesystem')
-        self.load_attr('has_diskio')
+        self._load_attr('has_network')
+        self._load_attr('has_filesystem')
+        self._load_attr('has_diskio')
 
-        self.load_attr('has_custom_metrics')
-        self.load_attr_info_list('custom_metrics', MetricSpec)
+        self._load_attr('has_custom_metrics')
+        self._load_attr_as_list_of('custom_metrics', MetricSpec)
 
     @staticmethod
     def __to_datetime(value):
@@ -35,15 +35,15 @@ class ContainerSpec(Info):
         return datetime.strptime(value[:-4], go_time_format)
 
 class CpuSpec(Info):
-    def setup(self):
-        self.load_attr('limit')
-        self.load_attr('max_limit')
-        self.load_attr('mask')
-        self.load_attr('quota')
-        self.load_attr('period')
+    def _setup(self):
+        self._load_attr('limit')
+        self._load_attr('max_limit')
+        self._load_attr('mask')
+        self._load_attr('quota')
+        self._load_attr('period')
 
 class MemorySpec(Info):
-    def setup(self):
-        self.load_attr('limit')
-        self.load_attr('reservation')
-        self.load_attr('swap_limit')
+    def _setup(self):
+        self._load_attr('limit')
+        self._load_attr('reservation')
+        self._load_attr('swap_limit')
