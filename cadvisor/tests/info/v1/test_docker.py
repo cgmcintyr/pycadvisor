@@ -2,10 +2,9 @@
 from __future__ import absolute_import, division, print_function
 
 import unittest
-import json
 
-from cadvisor.info.v1.docker import DockerStatus
 from cadvisor.info.v1.docker import DockerImage
+from cadvisor.info.v1.docker import DockerStatus
 
 class TestV1DockerStatus(unittest.TestCase):
     def test_docker_status_version(self):
@@ -47,7 +46,6 @@ class TestV1DockerStatus(unittest.TestCase):
     def test_docker_status_num_containers(self):
         status = DockerStatus({'num_containers':'test'})
         self.assertEqual(status.num_containers, 'test')
-
 
 class TestV1DockerImage(unittest.TestCase):
     def test_docker_image_id(self):

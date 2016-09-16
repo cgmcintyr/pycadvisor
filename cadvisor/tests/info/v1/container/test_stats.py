@@ -2,24 +2,23 @@
 from __future__ import absolute_import, division, print_function
 
 import unittest
-import json
 
 from datetime import datetime
 
 from cadvisor.info.v1.metric import MetricVal
-from cadvisor.info.v1.container.stats import TcpStats
-from cadvisor.info.v1.container.stats import FsStats
-from cadvisor.info.v1.container.stats import NetworkStats
-from cadvisor.info.v1.container.stats import InterfaceStats
-from cadvisor.info.v1.container.stats import MemoryStatsMemoryData
-from cadvisor.info.v1.container.stats import MemoryStats
-from cadvisor.info.v1.container.stats import DiskIoStats
-from cadvisor.info.v1.container.stats import PerDiskStats
-from cadvisor.info.v1.container.stats import LoadStats
-from cadvisor.info.v1.container.stats import CpuCFS
-from cadvisor.info.v1.container.stats import CpuUsage
-from cadvisor.info.v1.container.stats import CpuStats
 from cadvisor.info.v1.container.stats import ContainerStats
+from cadvisor.info.v1.container.stats import CpuCFS
+from cadvisor.info.v1.container.stats import CpuStats
+from cadvisor.info.v1.container.stats import CpuUsage
+from cadvisor.info.v1.container.stats import DiskIoStats
+from cadvisor.info.v1.container.stats import FsStats
+from cadvisor.info.v1.container.stats import InterfaceStats
+from cadvisor.info.v1.container.stats import LoadStats
+from cadvisor.info.v1.container.stats import MemoryStats
+from cadvisor.info.v1.container.stats import MemoryStatsMemoryData
+from cadvisor.info.v1.container.stats import NetworkStats
+from cadvisor.info.v1.container.stats import PerDiskStats
+from cadvisor.info.v1.container.stats import TcpStats
 
 class TestV1ContainerStats(unittest.TestCase):
     def test_init_container_stats_timestamp(self):

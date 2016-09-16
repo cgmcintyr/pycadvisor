@@ -2,11 +2,12 @@
 from __future__ import absolute_import, division, print_function
 
 import unittest
-import json
 
 from datetime import datetime
 
-from cadvisor.info.v1.container.spec import ContainerSpec, CpuSpec, MemorySpec
+from cadvisor.info.v1.container.spec import ContainerSpec
+from cadvisor.info.v1.container.spec import CpuSpec
+from cadvisor.info.v1.container.spec import MemorySpec
 from cadvisor.info.v1.metric import MetricSpec
 
 class TestV1ContainerInfo(unittest.TestCase):
@@ -57,15 +58,15 @@ class TestV1ContainerInfo(unittest.TestCase):
     def test_init_container_spec_has_custom_metrics(self):
         self.assertEqual(ContainerSpec({'has_custom_metrics':True}).has_custom_metrics, True)
 
-    def test_metric_spec_creates_list(self):
+    def test_init_container_spec_custom_metrics_creates_list(self):
         container = ContainerSpec({'custom_metrics':[{'name':'test'},{'name':'test'}]})
         self.assertEqual(len(container.custom_metrics), 2)
-        self.assertTrue(all(isinstance(x, MetricSpec) for x in container.custom_metrics))
 
-    def test_metric_spec_list_of_correct_type(self):
+    def test_init_container_spec_custom_metrics_correct_type(self):
         machine = ContainerSpec({'custom_metrics':[{'name':'test'},{'name':'test'}]})
         self.assertTrue(all(isinstance(x, MetricSpec) for x in machine.custom_metrics))
 
+class TestV1CpuSpec(unittest.TestCase):
     def test_init_cpu_spec_limit(self):
         self.assertEqual(CpuSpec({'limit':True}).limit, True)
 
@@ -81,6 +82,7 @@ class TestV1ContainerInfo(unittest.TestCase):
     def test_init_cpu_spec_period(self):
         self.assertEqual(CpuSpec({'period':True}).period, True)
 
+class TestV1MemorySpec(unittest.TestCase):
     def test_init_memory_spec_limit(self):
         self.assertEqual(MemorySpec({'limit':True}).limit, True)
 

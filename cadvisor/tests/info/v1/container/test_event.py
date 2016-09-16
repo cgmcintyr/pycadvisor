@@ -2,11 +2,12 @@
 from __future__ import absolute_import, division, print_function
 
 import unittest
-import json
 
 from datetime import datetime
 
-from cadvisor.info.v1.container.event import Event, EventData, OomKillEventData
+from cadvisor.info.v1.container.event import Event
+from cadvisor.info.v1.container.event import EventData
+from cadvisor.info.v1.container.event import OomKillEventData
 
 class TestV1ContainerEvent(unittest.TestCase):
     def test_init_container_event_container_name(self):

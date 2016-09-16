@@ -2,19 +2,17 @@
 from __future__ import absolute_import, division, print_function
 
 import unittest
-import json
 
 import requests_mock
 
-import cadvisor.tests.mocks as mocks
 from cadvisor import Cadvisor
-from cadvisor.info.v1.machine import MachineInfo
-from cadvisor.info.v1.machine import FsInfo
+from cadvisor.info.v1.machine import Cache
+from cadvisor.info.v1.machine import Core
 from cadvisor.info.v1.machine import DiskInfo
+from cadvisor.info.v1.machine import FsInfo
+from cadvisor.info.v1.machine import MachineInfo
 from cadvisor.info.v1.machine import NetInfo
 from cadvisor.info.v1.machine import Node
-from cadvisor.info.v1.machine import Core
-from cadvisor.info.v1.machine import Cache
 
 class TestV1MachineInfo(unittest.TestCase):
     def test_machine_info_returns_machine_info_object(self):
@@ -45,90 +43,6 @@ class TestV1MachineInfo(unittest.TestCase):
         machine = MachineInfo({'instance_id': 'test'})
         self.assertEqual(machine.instance_id, 'test')
 
-    def test_fs_info_device(self):
-        fs = FsInfo({'device':'test'})
-        self.assertEqual(fs.device, 'test')
-
-    def test_fs_info_capacity(self):
-        fs = FsInfo({'capacity':'test'})
-        self.assertEqual(fs.capacity, 'test')
-
-    def test_fs_info_fs_type(self):
-        fs = FsInfo({'type': 'test'})
-        self.assertEqual(fs.fs_type, 'test')
-
-    def test_fs_info_has_inodes(self):
-        fs = FsInfo({'has_inodes': 'test'})
-        self.assertEqual(fs.has_inodes, 'test')
-
-    def test_fs_info_inodes(self):
-        fs = FsInfo({'inodes': 'test'})
-        self.assertEqual(fs.inodes, 'test')
-
-    def test_disk_info_name(self):
-        disk = DiskInfo({'name':'test'})
-        self.assertEqual(disk.name, 'test')
-
-    def test_disk_info_major(self):
-        disk = DiskInfo({'major':'test'})
-        self.assertEqual(disk.major, 'test')
-
-    def test_disk_info_minor(self):
-        disk = DiskInfo({'minor':'test'})
-        self.assertEqual(disk.minor, 'test')
-
-    def test_disk_info_size(self):
-        disk = DiskInfo({'size':'test'})
-        self.assertEqual(disk.size, 'test')
-
-    def test_disk_info_scheduler(self):
-        disk = DiskInfo({'scheduler':'test'})
-        self.assertEqual(disk.scheduler, 'test')
-
-    def test_net_info_name(self):
-        net = NetInfo({'name':'test'})
-        self.assertEqual(net.name, 'test')
-
-    def test_net_info_mac_address(self):
-        net = NetInfo({'mac_address':'test'})
-        self.assertEqual(net.mac_address, 'test')
-
-    def test_net_info_speed(self):
-        net = NetInfo({'speed':'test'})
-        self.assertEqual(net.speed, 'test')
-
-    def test_net(self):
-        net = NetInfo({'mtu':'test'})
-        self.assertEqual(net.mtu, 'test')
-
-    def test_node_node_id(self):
-        node = Node({'node_id':'test'})
-        self.assertEqual(node.node_id, 'test')
-
-    def test_node_memory(self):
-        node = Node({'memory':'test'})
-        self.assertEqual(node.memory, 'test')
-
-    def test_core_core_id(self):
-        core = Core({'core_id':'test'})
-        self.assertEqual(core.core_id, 'test')
-
-    def test_core_threads(self):
-        core = Core({'thread_ids':'test'})
-        self.assertEqual(core.threads, 'test')
-
-    def test_cache_size(self):
-        cache = Cache({'size':'test'})
-        self.assertEqual(cache.size, 'test')
-
-    def test_cache_cache_type(self):
-        cache = Cache({'type':'test'})
-        self.assertEqual(cache.cache_type, 'test')
-
-    def test_cache_level(self):
-        cache = Cache({'level':'test'})
-        self.assertEqual(cache.level, 'test')
-
     def test_filesystems_creates_list(self):
         machine = MachineInfo({'filesystems':[{'device':'test'},{'device':'test'}]})
         self.assertEqual(len(machine.filesystems), 2)
@@ -158,6 +72,74 @@ class TestV1MachineInfo(unittest.TestCase):
         machine = MachineInfo({'topology':[{'node_id':'test'},{'node_id':'test'}]})
         self.assertTrue(all(isinstance(x, Node) for x in machine.topology))
 
+class TestV1FsInfo(unittest.TestCase):
+    def test_fs_info_device(self):
+        fs = FsInfo({'device':'test'})
+        self.assertEqual(fs.device, 'test')
+
+    def test_fs_info_capacity(self):
+        fs = FsInfo({'capacity':'test'})
+        self.assertEqual(fs.capacity, 'test')
+
+    def test_fs_info_fs_type(self):
+        fs = FsInfo({'type': 'test'})
+        self.assertEqual(fs.fs_type, 'test')
+
+    def test_fs_info_has_inodes(self):
+        fs = FsInfo({'has_inodes': 'test'})
+        self.assertEqual(fs.has_inodes, 'test')
+
+    def test_fs_info_inodes(self):
+        fs = FsInfo({'inodes': 'test'})
+        self.assertEqual(fs.inodes, 'test')
+
+class TestV1DiskInfo(unittest.TestCase):
+    def test_disk_info_name(self):
+        disk = DiskInfo({'name':'test'})
+        self.assertEqual(disk.name, 'test')
+
+    def test_disk_info_major(self):
+        disk = DiskInfo({'major':'test'})
+        self.assertEqual(disk.major, 'test')
+
+    def test_disk_info_minor(self):
+        disk = DiskInfo({'minor':'test'})
+        self.assertEqual(disk.minor, 'test')
+
+    def test_disk_info_size(self):
+        disk = DiskInfo({'size':'test'})
+        self.assertEqual(disk.size, 'test')
+
+    def test_disk_info_scheduler(self):
+        disk = DiskInfo({'scheduler':'test'})
+        self.assertEqual(disk.scheduler, 'test')
+
+class TestV1NetInfo(unittest.TestCase):
+    def test_net_info_name(self):
+        net = NetInfo({'name':'test'})
+        self.assertEqual(net.name, 'test')
+
+    def test_net_info_mac_address(self):
+        net = NetInfo({'mac_address':'test'})
+        self.assertEqual(net.mac_address, 'test')
+
+    def test_net_info_speed(self):
+        net = NetInfo({'speed':'test'})
+        self.assertEqual(net.speed, 'test')
+
+    def test_net_info_mtu(self):
+        net = NetInfo({'mtu':'test'})
+        self.assertEqual(net.mtu, 'test')
+
+class TestV1Node(unittest.TestCase):
+    def test_node_node_id(self):
+        node = Node({'node_id':'test'})
+        self.assertEqual(node.node_id, 'test')
+
+    def test_node_memory(self):
+        node = Node({'memory':'test'})
+        self.assertEqual(node.memory, 'test')
+
     def test_node_filesystems_list_of_correct_type(self):
         node = Node({'filesystems':[{'device':'test'},{'device':'test'}]})
         self.assertTrue(all(isinstance(x, FsInfo) for x in node.filesystems))
@@ -185,3 +167,26 @@ class TestV1MachineInfo(unittest.TestCase):
     def test_core_caches_list_of_correct_type(self):
         core = Node({'caches':[{'size':'test'},{'size':'test'}]})
         self.assertTrue(all(isinstance(x, Cache) for x in core.caches))
+
+class TestV1Core(unittest.TestCase):
+    def test_core_core_id(self):
+        core = Core({'core_id':'test'})
+        self.assertEqual(core.core_id, 'test')
+
+    def test_core_threads(self):
+        core = Core({'thread_ids':'test'})
+        self.assertEqual(core.threads, 'test')
+
+class TestV1Cache(unittest.TestCase):
+    def test_cache_size(self):
+        cache = Cache({'size':'test'})
+        self.assertEqual(cache.size, 'test')
+
+    def test_cache_cache_type(self):
+        cache = Cache({'type':'test'})
+        self.assertEqual(cache.cache_type, 'test')
+
+    def test_cache_level(self):
+        cache = Cache({'level':'test'})
+        self.assertEqual(cache.level, 'test')
+

@@ -2,9 +2,6 @@
 from __future__ import absolute_import, division, print_function
 
 import unittest
-import json
-
-from datetime import datetime
 
 from cadvisor.info.v1.container import ContainerInfo
 from cadvisor.info.v1.container.container import ContainerReference
