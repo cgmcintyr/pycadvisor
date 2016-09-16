@@ -15,13 +15,20 @@ class MachineInfo(Info):
         self.load_attr('boot_id')
 
         self.load_attr_info_list('filesystems', FsInfo)
-        self.load_attr_info_list('disk_map', DiskInfo)
+        self.load_attr('disk_map', convert=self.__to_string_disk_map)
         self.load_attr_info_list('network_devices', NetInfo)
         self.load_attr_info_list('topology', Node)
 
         self.load_attr('cloud_provider')
         self.load_attr('instance_type')
         self.load_attr('instance_id')
+
+    @staticmethod
+    def __to_string_disk_map(value):
+        disk_map = {}
+        for key in value.keys():
+            disk_map[key] = DiskInfo(value[key])
+        return disk_map
 
 class FsInfo(Info):
     def __init__(self, dictionary, **kwargs):

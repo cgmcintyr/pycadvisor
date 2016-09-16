@@ -137,13 +137,10 @@ class TestV1MachineInfo(unittest.TestCase):
     def test_filesystems_list_of_correct_type(self):
         machine = MachineInfo({'filesystems':[{'device':'test'},{'device':'test'}]})
         self.assertTrue(all(isinstance(x, FsInfo) for x in machine.filesystems))
-    def test_disk_map_creates_list(self):
-        machine = MachineInfo({'disk_map':[{'name':'test'},{'name':'test'}]})
-        self.assertEqual(len(machine.disk_map), 2)
 
-    def test_disk_map_list_of_correct_type(self):
-        machine = MachineInfo({'disk_map':[{'name':'test'},{'name':'test'}]})
-        self.assertTrue(all(isinstance(x, DiskInfo) for x in machine.disk_map))
+    def test_disk_map_creates_dict_of_disk_info_objects(self):
+        machine = MachineInfo({'disk_map':{'8:0':{'name':'test'}}})
+        self.assertEqual(machine.disk_map['8:0'].__class__, DiskInfo)
 
     def test_network_devices_creates_list(self):
         machine = MachineInfo({'network_devices':[{'name':'test'},{'name':'test'}]})
