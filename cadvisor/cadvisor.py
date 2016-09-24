@@ -56,9 +56,9 @@ class Cadvisor(object):
         data = self.__get_json_data(api.docker_info_url(self.api_url, ''))
         return [ContainerInfo(container) for container in data]
 
-    def get_event_static_info(self, name):
-        data = self.__get_json_data(api.events_info_url(self.api_url, name))
+    def get_event_info_static(self, name):
+        data = self.__get_json_data(api.events_static_url(self.api_url, name))
         return [Event(event) for event in data]
 
-    def get_event_streaming_info(self, name):
-        return self.__get_events_stream(api.events_info_url(self.api_url, name))
+    def get_event_info_stream(self, name):
+        return self.__get_events_stream(api.events_stream_info_url(self.api_url, name))
