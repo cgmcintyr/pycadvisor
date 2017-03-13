@@ -11,12 +11,6 @@ class Info:
     def __getitem__(self, x):
         return getattr(self, x)
 
-    def __setattr__(self, attr, value):
-        if hasattr(self, attr):
-            raise AttributeError('Attempted to alter read-only value')
-        else:
-            self.__dict__[attr] = value
-
     @staticmethod
     def __validate_info_list(info_list):
         if info_list is None:
