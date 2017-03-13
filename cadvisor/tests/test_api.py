@@ -34,8 +34,8 @@ class TestApi(unittest.TestCase):
         subcontainers_info = api.subcontainers_info_url(self.url, self.container_name)
         self.assertEqual(subcontainers_info, self.url + 'subcontainers/' + self.container_name)
 
-    def test_cadvisor_events_info_url(self):
-        events_info = api.events_info_url(self.url, self.container_name)
+    def test_cadvisor_events_static_url(self):
+        events_info = api.events_static_url(self.url, self.container_name)
         self.assertEqual(events_info, self.url + 'events/' + self.container_name)
 
 if __name__ == '__main__':

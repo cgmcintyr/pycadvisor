@@ -23,7 +23,7 @@ def docker_info_url(base_url, name):
     return urljoin(base_url, 'docker/' + name)
 
 def events_static_url(base_url, name):
-    url = urljoin(base_url, 'events/' + name)
+    return urljoin(base_url, 'events/' + name)
 
 def events_stream_url(base_url, name):
-    url = urljoin(base_url, 'events/' + name + '?stream=true')
+    return urljoin(base_url, 'events/' + name + '?stream=true')
